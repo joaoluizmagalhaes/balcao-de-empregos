@@ -26,7 +26,7 @@
 	        'supports'           => array('custom-fields'),
 	        'show_ui'            => true,
 	    );
-	    register_post_type('curriculo', $args);
+		register_post_type('curriculo', $args);
 	}
 
 	add_action('current_screen', 'myScreen_curriculo_post_type');
@@ -106,6 +106,7 @@
 		return $data; // Returns the modified data.
 	}
 
+	// Troca os caracteres especias do nome do currículo
 	function sanitizeString($str) {
 		$str = preg_replace('/[áàãâä]/ui', 'a', $str);
 		$str = preg_replace('/[éèêë]/ui', 'e', $str);
@@ -114,8 +115,8 @@
 		$str = preg_replace('/[úùûü]/ui', 'u', $str);
 		$str = preg_replace('/[ç]/ui', 'c', $str);
 		// $str = preg_replace('/[,(),;:|!"#$%&/=?~^><ªº-]/', '_', $str);
-		$str = preg_replace('/[^a-z0-9]/i', '_', $str);
-		$str = preg_replace('/_+/', '_', $str); // ideia do Bacco :)
+		//$str = preg_replace('/[^a-z0-9]/i', '_', $str);
+		//$str = preg_replace('/_+/', '_', $str); // ideia do Bacco :)
 		return $str;
 	}
 	

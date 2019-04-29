@@ -1,0 +1,22 @@
+.curriculo {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+
+}
+
+.curriculo__header {
+    width: 100%;
+    border-bottom: 1px solid black; 
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.curriculo__name {
+    width: 100%;
+}
+
+.curriculo__header-text {
+    margin: 0;
+}
