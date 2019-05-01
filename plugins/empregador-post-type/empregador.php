@@ -20,7 +20,7 @@
 	    $args = array(
 	        'labels'             => $labels,
 	        'menu_icon'          => 'dashicons-businessman',
-	        'menu_position'      => 4,
+	        'menu_position'      => 5,
 	        'public'             => true,
 	        'has_archive'        => true,
 	        'supports'           => array('custom-fields'),
