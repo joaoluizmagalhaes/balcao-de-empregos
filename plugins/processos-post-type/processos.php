@@ -4,9 +4,9 @@
 	function init_processos_post_type() {
 
 		$labels = array(
-		    'add_new'            => _x('Novo Processos', 'processos'),
+		    'add_new'            => _x('Novo Processo', 'processos'),
 	        'add_new_item'       => _x('Adicionar novo Processo', 'processos'),
-	        'edit_item'          => _x('Editar Processos', 'processos'),
+	        'edit_item'          => _x('Editar Processo', 'processos'),
 	        'menu_name'          => _x('Processos', 'processos'),
 	        'name'               => _x('Processos', 'processos'),
 	        'new_item'           => _x('Novo Processo', 'processos'),
@@ -95,9 +95,11 @@
 
 
 
-	//add_filter( 'wp_insert_post_data' , 'modify_processos_post_title' , '99', 1 ); // Grabs the inserted post data so you can modify it.
+	add_filter( 'wp_insert_post_data' , 'modify_processos_post_title' , '99', 1 ); // Grabs the inserted post data so you can modify it.
 	function modify_processos_post_title( $data ) {
-		$postName = $_POST['acf']['field_5cc852822d488']['field_5cc852af2d489'];
+		if($_POST['process_number']) {
+			$postName = sanitize_text_field($_POST['process_number']);
+		}
 		if($data && $postName){
 			$data['post_title'] = $postName;
 			$data['post_name'] = str_replace(' ', '-', sanitizeString(strtolower($postName)));
