@@ -22,7 +22,8 @@
 	        'menu_icon'          => 'dashicons-id-alt',
 	        'menu_position'      => 4,
 	        'public'             => true,
-	        'has_archive'        => true,
+			'has_archive'        => true,
+			'taxonomies'         => array('palavras_chave'),
 	        'supports'           => array('custom-fields'),
 	        'show_ui'            => true,
 	    );
