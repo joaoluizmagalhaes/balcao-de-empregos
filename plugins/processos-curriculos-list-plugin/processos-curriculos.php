@@ -7,94 +7,61 @@
             'Lista de Currículos', 
             'Lista de Currículos', 
             'manage_options', 
-            'processos-curriculos-list-plugin/curriculos-list-page.php', 
+            'processos-curriclos', 
             'curriculos_list_page',
-            'dashicons-tickets', 5  );
+            'dashicons-media-text', 5  );
     }
 
     function curriculos_list_page() {
 
-        $args = array(
-            'post_type' => 'processos',
-            'post_status' => 'publish',
-            'post_per_page' => -1
-        );
+        if( $_GET['palavras_chave']) {
+            $args2 = array(
+                'post_type' => 'curriculo',
+                'tax_query' => array( 
+                                array( 'taxonomy' => 'palavras_chave', 
+                                        'fields'=> 'term_id',
+                                        'terms' => $_GET['palavras_chave']
+                                    )
+                                )
+                );
+            $query = new WP_Query($args2);
+            var_dump($query->have_posts());
+            while($query->have_posts()) : $query->the_post(); ?>
+                    
+                <a href="<?php echo admin_url()?>"><?php the_title(); ?></a>
+            <?php 
 
-        $query = new WP_Query( $args );
-    
-        ?>
+            endwhile;
+            wp_reset_postdata();
+        } else {
+            $args = array(
+                'post_type' => 'processos',
+                'post_status' => 'publish',
+                'post_per_page' => -1
+            );
 
-        <form>
+            $query = new WP_Query( $args );
 
-        </form>
-        <table class="widefat fixed" cellspacing="0">
-            <thead>
-                <tr>
-                    <th id="cb" class="manage-column column-cb check-column" scope="col"></th>
-                    <th id="columnname" class="manage-column column-columnname" scope="col">Processos</th>
-                    <th id="columnname" class="manage-column column-columnname num" scope="col"></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th class="manage-column column-cb check-column" scope="col"></th>
-                    <th class="manage-column column-columnname" scope="col"></th>
-                    <th class="manage-column column-columnname num" scope="col"></th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <tr class="alternate">
-                    <th class="check-column" scope="row"></th>
-                    <td class="column-columnname"></td>
-                    <td class="column-columnname"></td>
-                </tr>
-                <tr>
-                    <th class="check-column" scope="row"></th>
-                    <td class="column-columnname"></td>
-                    <td class="column-columnname"></td>
-                </tr>
-                <?php 
-                    if($query->have_posts()) {
-                        $i = 0;
-                        while($query->have_posts()) : $query->the_post(); ?>
-                            <tr <?php echo ($i%2 === 0) ? 'class="alternate"': '';?> valign="top">
-                                <th class="check-column" scope="row">                       
-                                </th>
-                                <td class="column-columnname">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-
-                                    <div class="row-actions">
-                                    </div>
-                                </td>
-                                <td class="column-columnname"></td>
-                            </tr>
-                            <?php 
-                            $i++;
-                        endwhile;
-                        wp_reset_postdata();
+            if($query->have_posts()) {
+            
+                while($query->have_posts()) : $query->the_post(); 
+                    $terms = get_the_terms(get_the_id(), 'palavras_chave');
+                    
+                    $array = [];
+                    foreach($terms as $key => $term) {
+                        $array[$key] = $term->term_id;
                     }
-                ?>
-                <tr class="alternate" valign="top">
-                    <th class="check-column" scope="row"></th>
-                    <td class="column-columnname">
-                        <div class="row-actions">
-                            <span><a href="#">Action</a> |</span>
-                            <span><a href="#">Action</a></span>
-                        </div>
-                    </td>
-                    <td class="column-columnname"></td>
-                </tr>
-                <tr valign="top">
-                    <th class="check-column" scope="row"></th>
-                    <td class="column-columnname">
-                        <div class="row-actions">
-                            <span><a href="#">Action</a> |</span>
-                            <span><a href="#">Action</a></span>
-                        </div>
-                    </td>
-                    <td class="column-columnname"></td>
-                </tr>
-            </tbody>
-        </table>
+                    $palavras_chave = http_build_query(array('palavras_chave' => $array));
+                    ?>
 
+                        <a href="<?php echo admin_url() . 'admin.php?page=processos-curriclos&'.$palavras_chave ?>"><?php the_title(); ?></a>
+                    <?php 
+            
+                endwhile;
+                wp_reset_postdata();
+            }
+        }
+    ?>
+
+        
     <?php }
