@@ -22,7 +22,7 @@
 	        'menu_icon'          => 'dashicons-id-alt',
 	        'menu_position'      => 4,
 	        'public'             => true,
-			'has_archive'        => true,
+	        'has_archive'        => true,
 	        'supports'           => array('custom-fields'),
 	        'show_ui'            => true,
 	    );
