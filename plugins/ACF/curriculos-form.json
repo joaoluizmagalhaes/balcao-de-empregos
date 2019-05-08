@@ -149,7 +149,9 @@
                     "casado": "Casado(a)",
                     "separado": "Separado(a)",
                     "divorciado": "Divorciado(a)",
-                    "viuvo": "Viúvo(a)"
+                    "viuvo": "Viúvo(a)",
+                    "amaziado": "Amaziado(a)",
+                    "uniao": "União Estável"
                 },
                 "default_value": [],
                 "allow_null": 1,
@@ -346,8 +348,8 @@
                         "key": "field_5cc4775317433",
                         "label": "Estado",
                         "name": "estado",
-                        "type": "text",
-                        "instructions": "Insira o Estado",
+                        "type": "select",
+                        "instructions": "Escolha o Estado",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -355,11 +357,39 @@
                             "class": "",
                             "id": ""
                         },
-                        "default_value": "",
-                        "placeholder": "Estado",
-                        "prepend": "",
-                        "append": "",
-                        "maxlength": ""
+                        "choices": {
+                            "ac": "AC",
+                            "al": "AL",
+                            "ap": "AP",
+                            "am": "AM",
+                            "ba": "BA",
+                            "ce": "CE",
+                            "df": "DF",
+                            "go": "GO",
+                            "ma": "MT",
+                            "ms": "MS",
+                            "mg": "MG",
+                            "pa": "PA",
+                            "pb": "PB",
+                            "pr": "PR",
+                            "pe": "PE",
+                            "pi": "PI",
+                            "rj": "RJ",
+                            "rs :RS": "rs :RS",
+                            "ro": "RO",
+                            "rr": "RR",
+                            "sc": "SC",
+                            "sp": "SP",
+                            "se": "SE",
+                            "tp": "TO"
+                        },
+                        "default_value": [],
+                        "allow_null": 0,
+                        "multiple": 0,
+                        "ui": 0,
+                        "return_format": "label",
+                        "ajax": 0,
+                        "placeholder": ""
                     },
                     {
                         "key": "field_5cc4778d17434",
@@ -651,7 +681,12 @@
                     "fundamental-completo": "FUNDAMENTAL COMPLETO",
                     "medio-incompleto": "ENSINO MÉDIO INCOMPLETO",
                     "medio-completo": "ENSINO MÉDIO COMPLETO",
-                    "superior-completo": "SUPERIOR COMPLETO"
+                    "profissionalizante": "PROFISSIONALIZANTE",
+                    "tecnico": "TÉCNICO",
+                    "superior-completo": "SUPERIOR COMPLETO",
+                    "pos-graduado": "PÓS-GRADUAÇÃO",
+                    "mestrado": "MESTRADO",
+                    "doutorado": "DOUTORADO"
                 },
                 "default_value": [],
                 "allow_null": 1,
@@ -674,6 +709,21 @@
                             "field": "field_5cc47c7d555ca",
                             "operator": "==",
                             "value": "superior-completo"
+                        },
+                        {
+                            "field": "field_5cc47c7d555ca",
+                            "operator": "==",
+                            "value": "pos-graduado"
+                        },
+                        {
+                            "field": "field_5cc47c7d555ca",
+                            "operator": "==",
+                            "value": "mestrado"
+                        },
+                        {
+                            "field": "field_5cc47c7d555ca",
+                            "operator": "==",
+                            "value": "doutorado"
                         }
                     ]
                 ],
