@@ -63,7 +63,7 @@
                         ?>
                             <tr>
                                 <td>
-                                    <a href="<?php echo admin_url() . 'admin.php?page=processos-curriclos&'.$palavras_chave ?>"><?php the_title(); ?></a>
+                                    Processo: <a href="<?php echo admin_url() . 'admin.php?page=processos-curriclos&'.$palavras_chave ?>"><?php the_title(); ?></a>
                                 </td>
                             </tr>
                         <?php 
