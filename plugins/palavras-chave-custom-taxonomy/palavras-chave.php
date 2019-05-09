@@ -21,7 +21,7 @@
 
 		// Now register the taxonomy
 
-		register_taxonomy('palavras_chave',array('processos'), array(
+		register_taxonomy('palavras_chave',array('processos', 'curriculo'), array(
 			'hierarchical' => false,
 			'labels' => $labels,
 			'show_ui' => true,
