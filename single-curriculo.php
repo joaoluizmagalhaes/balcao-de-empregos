@@ -89,8 +89,9 @@ get_header();
 					</div>
 					<div class="curriculo__section-wrapper">
 						<p class="curriculo__text">Cursos: <?php echo esc_html($acf['cursos_complementares']); ?></p>
+					</div>
+					<div class="curriculo__section-wrapper">	
 						<p class="curriculo__text">Interesses: <?php echo esc_html($acf['interesses']); ?></p>
-						<p class="curriculo__text">Palavras Chave: <?php echo esc_html($acf['palavras_chave']); ?></p>
 					</div>
 				</div>
 			</div>
