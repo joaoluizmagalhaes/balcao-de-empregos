@@ -71,7 +71,7 @@ get_header();
                             </div>
                         </div>
                     <?php endwhile; ?>
-                </table>
+            </div>
             <?php wp_reset_postdata();
             }
         } ?>

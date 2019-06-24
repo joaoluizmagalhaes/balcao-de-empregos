@@ -43,7 +43,7 @@
                     ?>
                         <tr>
                             <td>
-                                Processo: <a href="<?php echo get_the_permalink().'?id='.get_the_id().'&page=processos-curriclos&'.$palavras_chave ?>"><?php the_title(); ?></a>
+                                Processo: <a href="<?php echo get_the_permalink().'?id='.get_the_id().'&page=processos-curriclos&'.$palavras_chave ?>"><?php echo str_replace('-', '/', get_the_title()); ?></a>
                             </td>
                         </tr>
                     <?php 
