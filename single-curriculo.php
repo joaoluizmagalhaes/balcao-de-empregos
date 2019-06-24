@@ -88,10 +88,10 @@ get_header();
 						<h1 class="curriculo__title">Informações Complementares</h1>
 					</div>
 					<div class="curriculo__section-wrapper">
-						<p class="curriculo__text">Cursos: <?php echo esc_html($acf['cursos_complementares']); ?></p>
+						<p class="curriculo__text"><?php echo $acf['cursos_complementares'] !== '' ? 'Cursos: ' . esc_html($acf['cursos_complementares']) : '' ; ?></p>
 					</div>
 					<div class="curriculo__section-wrapper">	
-						<p class="curriculo__text">Interesses: <?php echo esc_html($acf['interesses']); ?></p>
+						<p class="curriculo__text"><?php echo $acf['interesses'] !== '' ? 'Interesses: ' . esc_html($acf['interesses']) : ''; ?></p>
 					</div>
 				</div>
 			</div>
