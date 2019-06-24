@@ -132,3 +132,16 @@ table {
     background: black;
     display:inline-block;
 }
+
+.curriculo__print {
+    text-align: right;
+}
+
+.processos {
+    max-width: 960px;
+    margin: auto;
+
+    .curriculo {
+        padding: 0;
+    }
+}

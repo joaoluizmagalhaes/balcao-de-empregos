@@ -44,7 +44,7 @@
 	 
 	}
 
-	// The Callback for gallery
+	// The Callback for process Number
 	function process_custom_meta_box($post) { ?>
 		<table class="form-table">
 			<tr>
@@ -65,9 +65,9 @@
 							$query = new WP_Query( $args );
 							$processNumber = $query->post_count === 0 ? 1 : ($query->post_count + 1);
 							echo str_pad($processNumber, 4, "0", STR_PAD_LEFT) . '/' . $getdate['year']; ?>
-							<input name="process_number" type="hidden" value="<?php echo esc_html(str_pad($processNumber, 4, "0", STR_PAD_LEFT) . '/' . $getdate['year']);?>">
+							<input name="process_number" type="hidden" value="<?php echo esc_html(str_pad($processNumber, 4, "0", STR_PAD_LEFT) . '-' . $getdate['year']);?>">
 						<?php } else { ?>
-							<?php echo esc_html($process_number[0]); ?>
+							<?php echo esc_html( str_replace('-', '/', $process_number[0])); ?>
 							<input name="process_number" type="hidden" value="<?php echo esc_html($process_number[0]); ?>">
 						<?php } 
 					?>
@@ -106,3 +106,10 @@
 		}
 		return $data; // Returns the modified data.
 	}
+
+	function build_js(){
+		if( is_single() && get_post_type()=='processos' ){
+			wp_enqueue_script('processos-js', get_template_directory_uri().'/_assets/js/processos.js');
+		}
+	}
+	add_action('wp_enqueue_scripts', 'build_js');
