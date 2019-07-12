@@ -110,6 +110,84 @@
 	function build_js(){
 		if( is_single() && get_post_type()=='processos' ){
 			wp_enqueue_script('processos-js', get_template_directory_uri().'/_assets/js/processos.js');
+			wp_enqueue_script( 'ajaxsettings', get_template_directory_uri().'/_assets/js/mail.js');		
 		}
 	}
 	add_action('wp_enqueue_scripts', 'build_js');
+
+
+	// Localize the script with new data
+	$ajaxsettings = array(
+	    'ajaxurl' => admin_url('admin-ajax.php')
+	);
+	wp_localize_script( 'ajaxsettings', 'ajaxsettings', $ajaxsettings );
+
+	add_action( 'wp_ajax_cleanResponseFiles',  'cleanResponseFiles');
+	add_action( 'wp_ajax_nopriv_cleanResponseFiles','cleanResponseFiles');
+
+	function cleanResponseFiles(){
+	   	$data = $_POST;
+
+	   	$args = array(
+            'post_type' => 'empregador',
+           	'p' => $data['contratanteID']
+        );
+        
+        $query = new WP_Query($args);
+
+        if($query->have_posts()) { 
+        	while($query->have_posts()) : $query->the_post();
+        		$acf = get_fields();
+        		$email = $acf['empregador_pessoa_juridica']['contato@empresaazul.com.br'];
+        		$nome = $acf['empregador_pessoa_juridica']['responsavel_cadastro'];
+        	endwhile;
+        }
+
+        wp_reset_postdata();
+
+        $mensagem = "Olá " . $nome . ",<br><br>Este é um email com link dos currículos para o processo de seleção da empresa " . $acf['empregador_pessoa_juridica']['nome_da_empresa']. ", gerado pelo Balcão de Empregos de Cambuí.<br><br>Segue o link com a lista do <a href=" . $data['url'] . ">" .  $data['processo'] ."</a><br><br>Qualquer dúvida, entre em contato com o Balcão de Empregos!";
+
+      	$assunto = "Lista de candidatos para o " . $data['processo'] . " do Balcão de Empregos de Cambuí.";
+
+      	$mail_sent = mailing('dukejlf@gmail.com', $assunto, $mensagem);
+
+      	var_dump($mail_sent);exit();
+        if ($mail_sent == true) {
+            return true;
+        } else { 
+            return false;
+        } // End else
+
+	    //Always use exit() in ajax request handler function end
+	    exit();
+	}
+
+	function mailing($to, $subject, $message) {
+
+        require_once get_template_directory() . '/plugins/mailer/PHPMailerAutoload.php';
+
+        $from             = 'contato@balcaodeempregoscambui.com.br';
+        $namefrom         = 'Contato Balcão de Empregos';
+        $mail             = new PHPMailer();
+        $mail->CharSet    = 'UTF-8';
+        $mail->Mailer     = 'smtp';
+        $mail->SMTPAuth   = true;   // user and password
+        $mail->SMTPSecure = "ssl";    // options: 'ssl', 'tls' , ''
+        $mail->Host       = 'mail.balcaodeempregoscambui.com.br';
+        $mail->Port       = 465;
+        $mail->Username   = 'contato@balcaodeempregoscambui.com.br';
+        $mail->Password   = '$a}(Z.#m3Ahi';
+
+
+        $mail->setFrom($from, $namefrom);   // From (origin)
+        $mail->addCC($from, $namefrom);      // There is also addBCC
+        $mail->Subject = $subject;
+        //$mail->AltBody  = $altmess;
+        $mail->Body = $message;
+        $mail->isHTML(true);   // Set HTML type
+        //$mail->addAttachment("attachment");
+        $mail->addAddress($to);
+
+        return $mail->send();
+    }
+		

@@ -46,6 +46,9 @@ get_header();
 							<p class="curriculo__header-text"><?php echo $acf['telefone']['telefone_2'] !== '' ? 'Telefones: ' . esc_html($acf['telefone']['telefone_1']) . ' e '. esc_html($acf['telefone']['telefone_2']) : 'Telefone: ' . esc_html($acf['telefone']['telefone_1']) ;?></p>
 							<p class="curriculo__header-text">Email: <?php echo esc_html($acf['email']); ?></p>
 						</div>
+						<div class="curriculo__wrapper">
+                                    <p class="curriculo__header-text">Estado Civil: <?php echo esc_html($acf['estado_civil']); ?> | Habilitação: <?php echo esc_html($acf['categoria_cnh']); ?></p>
+                                </div>
 					</div>
 				</div>
 				<div class="curriculo__section">

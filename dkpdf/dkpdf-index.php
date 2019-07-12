@@ -63,6 +63,9 @@
                                 <div class="curriculo__endereco">
                                     <p class="curriculo__endereco-content"><?php echo $acf['telefone']['telefone_2'] !== '' ? 'Telefones: ' . esc_html($acf['telefone']['telefone_1']) . ' e '. esc_html($acf['telefone']['telefone_2']) : 'Telefone: ' . esc_html($acf['telefone']['telefone_1']) ;?> | Email: <?php echo esc_html($acf['email']); ?></p>
                                 </div>
+                                <div class="curriculo__endereco">
+                                    <p class="curriculo__endereco-content">Estado Civil: <?php echo esc_html($acf['estado_civil']); ?> | Habilitação: <?php echo esc_html($acf['categoria_cnh']); ?></p>
+                                </div>
                             </div>
                             <div class="curriculo__section">
                                 <div class="curriculo__section-header">
@@ -115,7 +118,7 @@
                     <?php }
                 }
                 wp_reset_postdata();
-             } else {
+            } else {
                 if ( $the_query->have_posts() ) {             
                     while ( $the_query->have_posts() ) {
                         $the_query->the_post();
@@ -123,27 +126,16 @@
 
                         $acf = get_fields(); ?>
 
-                        <div class="curriculo">
-                            <div class="curriculo__header">
-                                <div class="curriculo__name-wrapper">
-                                    <h1 class="curriculo__name">Processo: <?php echo esc_html(str_replace('-', '/',get_the_title()));?></h1>
+                        <div class="processos" style="border: 1px solid #000000; padding: 15px">
+                            <div class="processos__header">
+                                <div class="processos__header-wrapper">
+                                    <h1 class="processos__header-name processo" style="font-size: 20px;">Processo: <?php echo esc_html(str_replace('-', '/',get_the_title()));?></h1>
                                 </div>
-                                <div class="curriculo__endereco">
-                                    <p class="curriculo__endereco-content">Contratante: <?php echo esc_html($acf['contratante'][0]->post_title);?></p>
+                                <div class="processos__contratante">
+                                    <p class="processos__contratante-content">Contratante: <?php echo esc_html($acf['contratante'][0]->post_title);?> | Cargo:  <?php echo esc_html($acf['cargo']);?>  | Vagas: <?php echo esc_html($acf['numero_de_vagas']); ?></p>
                                 </div>
-                                <div class="curriculo__endereco">
-                                    <p class="curriculo__endereco-content">Cargo:  <?php echo esc_html($acf['cargo']);?> </p>
-                                </div>
-                                <div class="curriculo__header-wrapper">
-                                    <div class="curriculo__wrapper">
-                                        <p class="curriculo__header-text">Vagas: <?php echo esc_html($acf['numero_de_vagas']); ?> | Idade mínima: <?php echo esc_html($acf['faixa_etaria']['idade_minima']); ?> | Idade máxima: <?php echo esc_html($acf['faixa_etaria']['idade_maxima']); ?></p>
-                                    </div>
-                                </div>
-                                <div class="curriculo__endereco">
-                                    <p class="curriculo__endereco-content">Experiência:  <?php echo $acf['com_experiencia'] === 'Não' ? esc_html($acf['com_experiencia']) : $acf['experiencias'] ;?> </p>
-                                </div>
-                                <div class="curriculo__endereco">
-                                    <p class="curriculo__endereco-content">Formação:  <?php echo $acf['com_formacao'] === 'Não' ? esc_html($acf['com_formacao']) : $acf['formacao'] ;?> </p>
+                                <div class="processos__contratante">       
+                                    <p class="processos__contratante-content">Idade mínima: <?php echo esc_html($acf['faixa_etaria']['idade_minima']); ?> | Idade máxima: <?php echo esc_html($acf['faixa_etaria']['idade_maxima']); ?> | Experiência: <?php echo $acf['com_experiencia'] === 'Não' ? esc_html($acf['com_experiencia']) : $acf['experiencias'] ;?>  | Formação:  <?php echo $acf['com_formacao'] === 'Não' ? esc_html($acf['com_formacao']) : $acf['formacao'] ;?> </p>
                                 </div>
                             </div>
                         </div>
@@ -163,18 +155,29 @@
                         );
                     $query = new WP_Query($args2); 
                     if($query->have_posts()) { ?>
-                        <br><br><br>
-                        <div class="curriculo">
-                            <div class="curriculo__header">
-                                <?php while($query->have_posts()) : $query->the_post(); ?>
-                                    <div class="curriculo__header-wrapper">
-                                        <div class="curriculo__wrapper">
-                                            <p class="curriculo__header-text">Nome: <a href="<?php echo get_permalink();?>" target="blank"><?php echo esc_html(get_post_meta(get_the_ID(), 'nome', true)) ?></a> | Telefone: <?php echo esc_html(get_post_meta(get_the_ID(), 'telefone_telefone_1', true)); ?></p>
-                                        </div>
-                                    </div>
-                                <?php endwhile; ?>
-                            </div>
-                        </div>
+                        
+                        <table style="border: 1px solid #000000; padding: 15px">
+                            <tr>
+                                <th>Nome</th>
+                                <th>Contato</th>
+                            </tr>
+                            <?php while($query->have_posts()) : $query->the_post(); ?>
+                                <tr>
+                                    <td align="center">
+                                        <p class="processos__header-text">
+                                            <a href="<?php echo get_permalink();?>" target="blank">
+                                                <?php echo esc_html(get_post_meta(get_the_ID(), 'nome', true)) ?>
+                                            </a>
+                                        </p>
+                                    </td>
+                                    <td align="center">
+                                        <p class="processos__header-text">
+                                            <?php echo esc_html(get_post_meta(get_the_ID(), 'telefone_telefone_1', true)); ?>
+                                        </p>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </table>
                     <?php }
                     wp_reset_postdata();
                 }

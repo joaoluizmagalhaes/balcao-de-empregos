@@ -1,0 +1,64 @@
+.processos {
+	display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+    max-width: 100rem;
+}
+
+.processos__print, {
+	text-align: right;
+
+	button {
+		min-width: 200px;
+		min-height: 40px;
+		margin: 0 0 0 20px;
+		background-color: $button;
+		border: none;
+		cursor: pointer;
+		color: white;
+	}
+}
+
+.processos__header {
+	display: flex;
+	flex-direction: column;
+	border: 0.1rem solid black;
+	padding: 1.5rem;
+	margin: 1.5rem 0 0;
+
+}
+
+.processos__header-wrapper {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.processos__header-name {
+	font-size: $l-size;
+	margin: $s-size 0;
+}
+
+.processos__contratante {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.processos__contratante-content {
+	margin: 0.8rem 0 0 0;
+	font-size: $m-size;
+}
+
+.processos__table {
+	border: 0.1rem solid black;
+	width: calc(100% - 0.2rem);
+	padding: 0.5rem 0;
+	margin: 0 0 $xl-size;
+
+	tr td {
+		text-align: center;
+	}
+}
